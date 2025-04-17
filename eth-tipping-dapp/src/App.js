@@ -1,70 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { parseEther, formatEther, JsonRpcProvider } from 'ethers';
-import './App.css';
+import { parseEther, formatEther, JsonRpcProvider } from "ethers";
+import "./App.css";
 
 const App = () => {
     const [balance, setBalance] = useState(null);
 
     useEffect(() => {
         const fetchBalance = async () => {
-            const provider = new JsonRpcProvider("https://mainnet.infura.io/v3/be5c06cf97524bef8ec00e838a8363ac");
-            const walletAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+            const provider = new JsonRpcProvider("https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+            const walletAddress = "0xYourWalletAddress";
             const balance = await provider.getBalance(walletAddress);
             setBalance(formatEther(balance));
         };
 
         fetchBalance();
     }, []);
+
     const sendTip = async () => {
-        if (window.ethereum) {
-            try {
-                const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const transactionParams = {
-                    from: account,
-                    to: '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0', // Replace with your receiving wallet
-                    value: parseEther("0.01").toHexString() // 0.01 ETH tip
-                };
+        if (!window.ethereum) {
+            alert("MetaMask not detected. Please install MetaMask.");
+            return;
+        }
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        const sender = accounts[0];
+        const provider = new JsonRpcProvider(window.ethereum);
+        const signer = provider.getSigner(sender);
 
-                await window.ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [transactionParams]
-                });
-
-                alert('Thanks for your tip! 🚀');
-            } catch (error) {
-                console.error(error);
-                alert('Transaction failed or cancelled.');
-            }
-        } else {
-            alert('MetaMask not detected!');
+        try {
+            const tx = await signer.sendTransaction({
+                to: "0xYourWalletAddress",
+                value: parseEther("0.01")
+            });
+            await tx.wait();
+            alert("Tip sent! Thank you for your support!");
+        } catch (error) {
+            console.error(error);
+            alert("Transaction failed.");
         }
     };
 
     return (
-        <div className="app">
-            <h1 className="web3-heading">What is Web3?</h1>
-            <p className="web3-description">
-                Web3 is the future of the internet — open, decentralized, and owned by users.
-                It uses blockchain to enable secure digital transactions and peer-to-peer interactions without middlemen.
+        <div className="app-container">
+            <h1 className="main-heading">TipJar3</h1>
+            <h2 className="sub-heading">What is Web3?</h2>
+            <p className="description">
+                Web3 is the decentralized evolution of the internet — empowering users to control their data, identity, and money using blockchain technology. No middlemen, no central authority. Just direct, peer-to-peer digital freedom.
             </p>
 
-            <div className="card">
-                <h2>TipJar3</h2>
-                <p className="balance">{balance ? `Balance: ${balance} ETH` : "Loading..."}</p>
+            <h3>Decentralization of Trust</h3>
+            <p>
+                Smart contract rules live on-chain — no admin can reverse or block a tip. Peer-to-contract payments ensure your ETH goes straight to the recipient, visible and verifiable on the blockchain.
+            </p>
 
-                <button className="tip-button" onClick={sendTip}>
-                    💸 Send a Tip
-                </button>
+            <h3>Why Donate?</h3>
+            <p>
+                Your tip helps us scale Web3 applications and bring decentralized solutions to more users worldwide.
+                <br />
+                💡 <strong>Optional Perk:</strong> Donors can choose to have their name proudly displayed as a supporter!
+            </p>
 
+            <button className="tip-button" onClick={sendTip}>💸 Send a Tip</button>
 
-                <section className="info">
-                    <h3>Decentralization of Trust</h3>
-                    <p>
-                        In TipJar3, tipping uses smart contracts. No middlemen, no admins — only transparent,
-                        verifiable on-chain code defines the rules.
-                    </p>
-                </section>
-            </div>
+            <p className="balance-display">
+                {balance ? `Total Received: ${balance} ETH` : "Loading total donations..."}
+            </p>
         </div>
     );
 };
