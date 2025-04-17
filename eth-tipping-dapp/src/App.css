@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a192f;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.web3-heading {
+  font-size: 3rem;
+  color: #64ffda;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.web3-description {
+  color: #ccd6f6;
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
+  max-width: 600px;
+  text-align: center;
+}
+
+h2 {
+  color: #64ffda;
+  margin-bottom: 20px;
+}
+
+.balance {
+  font-size: 1.2rem;
+  margin: 10px 0 30px;
+}
+
+.tip-button {
+  background-color: #64ffda;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #0a192f;
+  transition: 0.3s ease;
+}
+
+.tip-button:hover {
+  background-color: #52e0c4;
+}
+
+.info h3 {
+  color: #64ffda;
+  margin-top: 20px;
+}
+
+.info p {
+  font-size: 1.5rem;
+  color: #ccd6f6;
+}
