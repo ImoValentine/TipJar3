@@ -60,6 +60,7 @@ html {
   margin-top: 40px; /* Offset for fixed marquee */
   margin-left: auto;
   margin-right: auto;
+  padding: 20px;
 }
 
 /* Particle Background */
@@ -165,4 +166,96 @@ form button {
   padding: 20px;
   color: gray;
   margin-top: auto;
+}
+
+/* Responsive Design: Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Stack the columns vertically */
+  .card-grid {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 20px;
+  }
+
+  /* Reorder the columns: Column 2 (center-section) first, then Column 1, then Column 3 */
+  .center-section {
+    order: 1; /* Column 2 (TipJar3) first */
+  }
+
+  .card-section:nth-child(1) {
+    order: 2; /* Column 1 (What is DeFi?) second */
+  }
+
+  .card-section:nth-child(3) {
+    order: 3; /* Column 3 (Collaborate) third */
+  }
+
+  /* Adjust font sizes and padding for mobile */
+  .main-heading {
+    font-size: 2rem;
+  }
+
+  .sub-heading {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    max-width: 100%; /* Prevent overflow on mobile */
+  }
+
+  .marquee-wrapper {
+    height: 30px;
+  }
+
+  .marquee-content {
+    font-size: 0.8rem;
+    padding-right: 50px;
+  }
+
+  .content-wrapper {
+    padding: 15px;
+  }
+
+  .card-section {
+    padding: 15px;
+  }
+
+  .tip-button {
+    padding: 12px 24px; /* Larger touch area */
+    font-size: 0.9rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 0.9rem;
+    padding: 12px; /* Larger touch area */
+  }
+}
+
+/* Extra Small Devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .main-heading {
+    font-size: 1.8rem;
+  }
+
+  .sub-heading {
+    font-size: 1.3rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .marquee-content {
+    font-size: 0.7rem;
+    padding-right: 30px;
+  }
 }
